@@ -6,6 +6,7 @@ import EyeIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import CommentIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import styles from "./Post.module.scss";
 import clsx from "clsx";
+import UserInfo from "../UserInfo/index.js";
 
 const Post = ({
   _id,
@@ -49,7 +50,7 @@ const Post = ({
         />
       )}
       <div className={styles.wrapper}>
-        {/*<UserInfo {...user} additionalText={createdAt} />*/}
+        <UserInfo {...user} additionalText={createdAt} />
         <div className={styles.indention}>
           <h2
             className={clsx(styles.title, { [styles.titleFull]: isFullPost })}
