@@ -6,7 +6,7 @@ import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import styles from "./AddPost.module.scss";
 
-const AddPost = () => {
+export const AddPost = () => {
   const imageUrl = "";
   const [value, setValue] = React.useState("");
   const handleChangeFile = () => {};
@@ -80,5 +80,3 @@ const AddPost = () => {
     </Paper>
   );
 };
-
-export default AddPost;
