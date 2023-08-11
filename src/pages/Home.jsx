@@ -1,8 +1,17 @@
+import React from "react";
 import { Grid, Tab, Tabs } from "@mui/material";
 import Post from "../components/Post/index.jsx";
 import { CommentsBlock, TagsBlock } from "../components/index.js";
+import { useDispatch } from "react-redux";
+import { fetchPosts } from "../redux/slices/postsSlice.js";
 
 export const Home = () => {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(fetchPosts());
+  }, []);
+
   return (
     <>
       <Tabs
