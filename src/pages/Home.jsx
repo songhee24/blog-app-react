@@ -1,5 +1,5 @@
 import { Grid, Tab, Tabs } from "@mui/material";
-import Post from "../components/Post/index.js";
+import Post from "../components/Post/index.jsx";
 import { CommentsBlock, TagsBlock } from "../components/index.js";
 
 export const Home = () => {

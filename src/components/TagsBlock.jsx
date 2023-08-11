@@ -1,4 +1,4 @@
-import SideBlock from "./SIdeBlock/index.js";
+import SideBlock from "./SIdeBlock/index.jsx";
 import {
   List,
   ListItem,

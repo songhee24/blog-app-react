@@ -1,4 +1,4 @@
-import PostSkeleton from "./PostSkeleton.js";
+import PostSkeleton from "./PostSkeleton.jsx";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Clear";
 import EditIcon from "@mui/icons-material/Edit";
@@ -6,7 +6,7 @@ import EyeIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import CommentIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import styles from "./Post.module.scss";
 import clsx from "clsx";
-import UserInfo from "../UserInfo/index.js";
+import UserInfo from "../UserInfo/index.jsx";
 
 const Post = ({
   _id,

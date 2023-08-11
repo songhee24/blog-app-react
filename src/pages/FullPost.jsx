@@ -1,6 +1,6 @@
-import Post from "../components/Post/index.js";
+import Post from "../components/Post/index.jsx";
 import { CommentsBlock } from "../components/index.js";
-import AddComment from "../components/AddComment/index.js";
+import AddComment from "../components/AddComment/index.jsx";
 
 export const FullPost = () => {
   return (
