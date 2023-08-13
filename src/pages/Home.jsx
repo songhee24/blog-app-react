@@ -3,7 +3,7 @@ import { Grid, Tab, Tabs } from "@mui/material";
 import Post from "../components/Post/index.jsx";
 import { CommentsBlock, TagsBlock } from "../components/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "../redux/slices/postsSlice.js";
+import { fetchPosts, fetchTags } from "../redux/slices/postsSlice.js";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -11,9 +11,11 @@ export const Home = () => {
 
   React.useEffect(() => {
     dispatch(fetchPosts());
+    dispatch(fetchTags());
   }, []);
 
   const isPostsLoading = posts.status === "loading";
+  const isTagsLoading = tags.status === "loading";
 
   return (
     <>
@@ -47,10 +49,7 @@ export const Home = () => {
           )}
         </Grid>
         <Grid xs={4} item>
-          <TagsBlock
-            items={["react", "typescript", "заметки"]}
-            isLoading={false}
-          />
+          <TagsBlock items={tags.items} isLoading={isTagsLoading} />
           <CommentsBlock
             items={[
               {
