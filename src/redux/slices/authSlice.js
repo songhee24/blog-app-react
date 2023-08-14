@@ -33,6 +33,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const selectIsAuth = (state) => Boolean(state.reducer.data);
+export const selectIsAuth = (state) => Boolean(state.auth.data);
 
 export const authReducer = authSlice.reducer;
