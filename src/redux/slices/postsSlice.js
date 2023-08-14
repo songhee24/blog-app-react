@@ -21,6 +21,20 @@ const postsSlice = createSlice({
   name: "postsSlice",
   initialState,
   reducers: {},
+  extraReducers: {
+    [fetchPosts.pending]: (state) => {
+      state.posts.items = [];
+      state.posts.status = "loading";
+    },
+    [fetchPosts.fulfilled]: (state, action) => {
+      state.posts.items = action.payload;
+      state.posts.status = "loaded";
+    },
+    [fetchPosts.rejected]: (state) => {
+      state.posts.items = [];
+      state.posts.status = "loaded";
+    },
+  },
 });
 
 export const postsReducer = postsSlice.reducer;
