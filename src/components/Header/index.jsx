@@ -9,7 +9,10 @@ const Header = () => {
   const isAuth = useSelector(selectIsAuth);
 
   const onClickLogout = () => {
-    if (confirm("Вы действительно хотите выйти ?")) dispatch(logout());
+    if (confirm("Вы действительно хотите выйти ?")) {
+      dispatch(logout());
+      window.localStorage.removeItem("token");
+    }
   };
 
   return (
