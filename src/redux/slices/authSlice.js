@@ -14,7 +14,7 @@ const initialState = {
   status: "loading",
 };
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: "authSlice",
   initialState,
   extraReducers: {
@@ -32,5 +32,7 @@ const authSlice = createSlice({
     },
   },
 });
+
+export const selectIsAuth = (state) => Boolean(state.reducer.data);
 
 export const authReducer = authSlice.reducer;

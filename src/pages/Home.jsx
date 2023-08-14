@@ -7,7 +7,7 @@ import { fetchPosts, fetchTags } from "../redux/slices/postsSlice.js";
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const { posts, tags } = useSelector((state) => state.reducer);
+  const { posts, tags } = useSelector((state) => state.posts);
 
   React.useEffect(() => {
     dispatch(fetchPosts());
