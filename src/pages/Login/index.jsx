@@ -4,8 +4,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import styles from "./Login.module.scss";
+import { useDispatch } from "react-redux";
+import { fetchAuth } from "../../redux/slices/authSlice.js";
 
 export const Login = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -20,7 +23,7 @@ export const Login = () => {
   });
 
   const onSubmit = (values) => {
-    console.log(values);
+    dispatch(fetchAuth(values));
   };
 
   return (
