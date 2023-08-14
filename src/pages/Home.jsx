@@ -8,6 +8,7 @@ import { fetchPosts, fetchTags } from "../redux/slices/postsSlice.js";
 export const Home = () => {
   const dispatch = useDispatch();
   const { posts, tags } = useSelector((state) => state.posts);
+  const userData = useSelector((state) => state.auth.data);
 
   React.useEffect(() => {
     dispatch(fetchPosts());
@@ -43,7 +44,7 @@ export const Home = () => {
                 viewsCount={post.viewsCount}
                 commentsCount={3}
                 tags={post.tags}
-                isEditable
+                isEditable={userData?._id === post.user._id}
               />
             )
           )}
