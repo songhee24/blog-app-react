@@ -104,7 +104,7 @@ export const AddPost = () => {
         placeholder="Заголовок статьи..."
         fullWidth
         value={title}
-        onChange={(e) => setTitle(e.target.title)}
+        onChange={(e) => setTitle(e.target.value)}
       />
       <TextField
         classes={{ root: styles.tags }}
@@ -112,7 +112,7 @@ export const AddPost = () => {
         placeholder="Тэги"
         fullWidth
         value={tags}
-        onChange={(e) => setTags(e.target.title)}
+        onChange={(e) => setTags(e.target.value)}
       />
       <SimpleMDE
         className={styles.editor}
