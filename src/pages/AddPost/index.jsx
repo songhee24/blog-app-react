@@ -6,19 +6,36 @@ import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import styles from "./AddPost.module.scss";
 import { useSelector } from "react-redux";
-import { selectIsAuth } from "../../redux/slices/authSlice.js";
-import { Navigate, useNavigate } from "react-router-dom";
+import { logout, selectIsAuth } from "../../redux/slices/authSlice.js";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "../../api/axios.js";
 
 export const AddPost = () => {
   const navigate = useNavigate();
   const isAuth = useSelector(selectIsAuth);
+  const { id } = useParams();
   const [imageUrl, setImageUrl] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [text, setText] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [tags, setTags] = React.useState("");
   const inputRef = React.useRef(null);
+
+  const isEditing = Boolean(id);
+
+  React.useEffect(() => {
+    if (id) {
+      axios
+        .get(`/posts/${id}`)
+        .then(({ data }) => {
+          setTitle(data.title);
+          setText(data.text);
+          setImageUrl(data.imageUrl);
+          setTags(data.tags.join(","));
+        })
+        .catch((e) => console.log(e));
+    }
+  }, []);
   const handleChangeFile = async (event) => {
     try {
       const formData = new FormData();
@@ -62,9 +79,11 @@ export const AddPost = () => {
         tags,
         text,
       };
-      const { data } = await axios.post("/posts", fields);
-      const id = data._id;
-      navigate(`/posts/${id}`);
+      const { data } = isEditing
+        ? await axios.patch(`/posts/${id}`, fields)
+        : await axios.post("/posts", fields);
+      const _id = isEditing ? id : data._id;
+      navigate(`/posts/${_id}`);
     } catch (e) {
       alert("Ошибка при создании статьи!");
     }
@@ -122,7 +141,7 @@ export const AddPost = () => {
       />
       <div className={styles.buttons}>
         <Button onClick={onSubmit} size="large" variant="contained">
-          Опубликовать
+          {isEditing ? "Сохранить" : "Опубликовать"}
         </Button>
         <a href="/">
           <Button size="large">Отмена</Button>
