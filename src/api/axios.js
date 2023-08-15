@@ -1,20 +1,13 @@
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "http://localhost:4444",
+const BASE_URL = "http://localhost:4444";
+
+export default axios.create({
+  baseURL: BASE_URL,
 });
 
-instance.interceptors.request.use((config) => {
-  //TODO token will not stored in localstorage
-  // config.headers.Authorization = window.localStorage.getItem("token");
-  config.withCredentials = true;
-  console.log("Request Config:", config);
-  return config;
+export const axiosPrivate = axios.create({
+  baseURL: BASE_URL,
+  headers: { "Content-Type": "application/json" },
+  withCredentials: true,
 });
-
-instance.interceptors.response.use((config) => {
-  config.withCredentials = true;
-  return config;
-});
-
-export default instance;
