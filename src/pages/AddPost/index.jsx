@@ -8,15 +8,25 @@ import styles from "./AddPost.module.scss";
 import { useSelector } from "react-redux";
 import { selectIsAuth } from "../../redux/slices/authSlice.js";
 import { Navigate } from "react-router-dom";
+import axios from "../../api/axios.js";
 
 export const AddPost = () => {
   const isAuth = useSelector(selectIsAuth);
-  const imageUrl = "";
+  const [imageUrl, setImageUrl] = React.useState("");
   const [value, setValue] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [tags, setTags] = React.useState("");
   const inputRef = React.useRef(null);
-  const handleChangeFile = () => {};
+  const handleChangeFile = async (event) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", event.target.files[0]);
+      const { data } = await axios.post("/upload", formData);
+      setImageUrl(data.url);
+    } catch (e) {
+      alert("Ошибка при загрузке файла !");
+    }
+  };
 
   const onClickRemoveImage = () => {};
   const onChange = React.useCallback((value) => {
@@ -38,6 +48,7 @@ export const AddPost = () => {
     []
   );
 
+  console.log(imageUrl);
   if (!window.localStorage.getItem("token") && !isAuth) {
     return <Navigate to={"/"} replace />;
   }
@@ -60,7 +71,7 @@ export const AddPost = () => {
       {imageUrl && (
         <img
           className={styles.image}
-          src={`http://localhost:4444${imageUrl}`}
+          src={`http://localhost:4444/${imageUrl}`}
           alt="Uploaded"
         />
       )}
