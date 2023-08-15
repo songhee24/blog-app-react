@@ -8,6 +8,8 @@ import styles from "./Post.module.scss";
 import clsx from "clsx";
 import UserInfo from "../UserInfo/index.jsx";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchRemovePost } from "../../redux/slices/postsSlice.js";
 
 const Post = ({
   _id,
@@ -23,11 +25,15 @@ const Post = ({
   isLoading,
   isEditable,
 }) => {
+  const dispatch = useDispatch();
   if (isLoading) {
     return <PostSkeleton />;
   }
 
-  const onClickRemove = () => {};
+  const onClickRemove = () => {
+    if (window.confirm("Вы действительно хотите удалить статью ?"))
+      dispatch(fetchRemovePost(_id));
+  };
 
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
