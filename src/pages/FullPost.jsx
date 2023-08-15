@@ -4,6 +4,7 @@ import AddComment from "../components/AddComment/index.jsx";
 import { useParams } from "react-router-dom";
 import React from "react";
 import axios from "../api/axios.js";
+import ReactMarkdown from "react-markdown";
 
 export const FullPost = () => {
   const [data, setData] = React.useState({});
@@ -37,7 +38,7 @@ export const FullPost = () => {
         tags={data.tags}
         isFullPost
       >
-        <p>{data.text}</p>
+        <ReactMarkdown>{data.text}</ReactMarkdown>
       </Post>
       <CommentsBlock
         items={[
