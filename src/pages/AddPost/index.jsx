@@ -7,10 +7,11 @@ import "easymde/dist/easymde.min.css";
 import styles from "./AddPost.module.scss";
 import { useSelector } from "react-redux";
 import { selectIsAuth } from "../../redux/slices/authSlice.js";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "../../api/axios.js";
 
 export const AddPost = () => {
+  const navigate = useNavigate();
   const isAuth = useSelector(selectIsAuth);
   const [imageUrl, setImageUrl] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
@@ -62,6 +63,8 @@ export const AddPost = () => {
         text,
       };
       const { data } = await axios.post("/posts", fields);
+      const id = data._id;
+      navigate(`/posts/${id}`);
     } catch (e) {
       alert("Ошибка при создании статьи!");
     }
