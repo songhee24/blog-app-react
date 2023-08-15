@@ -13,7 +13,8 @@ import axios from "../../api/axios.js";
 export const AddPost = () => {
   const isAuth = useSelector(selectIsAuth);
   const [imageUrl, setImageUrl] = React.useState("");
-  const [value, setValue] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [text, setText] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [tags, setTags] = React.useState("");
   const inputRef = React.useRef(null);
@@ -28,9 +29,12 @@ export const AddPost = () => {
     }
   };
 
-  const onClickRemoveImage = () => {};
+  const onClickRemoveImage = async () => {
+    // TODO remove also from server
+    setImageUrl("");
+  };
   const onChange = React.useCallback((value) => {
-    setValue(value);
+    setText(value);
   }, []);
 
   const options = React.useMemo(
@@ -48,7 +52,21 @@ export const AddPost = () => {
     []
   );
 
-  console.log(imageUrl);
+  const onSubmit = async () => {
+    try {
+      setIsLoading(true);
+      const fields = {
+        title,
+        imageUrl,
+        tags,
+        text,
+      };
+      const { data } = await axios.post("/posts", fields);
+    } catch (e) {
+      alert("Ошибка при создании статьи!");
+    }
+  };
+
   if (!window.localStorage.getItem("token") && !isAuth) {
     return <Navigate to={"/"} replace />;
   }
@@ -95,12 +113,12 @@ export const AddPost = () => {
       />
       <SimpleMDE
         className={styles.editor}
-        value={value}
+        value={text}
         onChange={onChange}
         options={options}
       />
       <div className={styles.buttons}>
-        <Button size="large" variant="contained">
+        <Button onClick={onSubmit} size="large" variant="contained">
           Опубликовать
         </Button>
         <a href="/">
