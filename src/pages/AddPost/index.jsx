@@ -13,6 +13,9 @@ export const AddPost = () => {
   const isAuth = useSelector(selectIsAuth);
   const imageUrl = "";
   const [value, setValue] = React.useState("");
+  const [title, setTitle] = React.useState("");
+  const [tags, setTags] = React.useState("");
+  const inputRef = React.useRef(null);
   const handleChangeFile = () => {};
 
   const onClickRemoveImage = () => {};
@@ -35,16 +38,20 @@ export const AddPost = () => {
     []
   );
 
-  if (!isAuth) {
+  if (!window.localStorage.getItem("token") && !isAuth) {
     return <Navigate to={"/"} replace />;
   }
 
   return (
     <Paper style={{ padding: 30 }}>
-      <Button variant="outlined" size="large">
+      <Button
+        onClick={() => inputRef.current.click()}
+        variant="outlined"
+        size="large"
+      >
         Загрузить превью
       </Button>
-      <input type="file" onChange={handleChangeFile} hidden />
+      <input ref={inputRef} type="file" onChange={handleChangeFile} hidden />
       {imageUrl && (
         <Button variant="contained" color="error" onClick={onClickRemoveImage}>
           Удалить
@@ -64,12 +71,16 @@ export const AddPost = () => {
         variant="standard"
         placeholder="Заголовок статьи..."
         fullWidth
+        value={title}
+        onChange={(e) => setTitle(e.target.title)}
       />
       <TextField
         classes={{ root: styles.tags }}
         variant="standard"
         placeholder="Тэги"
         fullWidth
+        value={tags}
+        onChange={(e) => setTags(e.target.title)}
       />
       <SimpleMDE
         className={styles.editor}
