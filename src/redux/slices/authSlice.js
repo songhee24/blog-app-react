@@ -4,20 +4,24 @@ import axios from "../../api/axios.js";
 export const fetchAuth = createAsyncThunk(
   "auth/fetchUserData",
   async (params) => {
-    const { data } = await axios.post("/auth/login", params);
+    const { data } = await axios.post("/auth/login", params, {
+      withCredentials: true,
+    });
     return data;
   }
 );
 
 export const fetchAuthMe = createAsyncThunk("auth/fetchAuthMe", async () => {
-  const { data } = await axios.get("/auth/me");
+  const { data } = await axios.get("/auth/me", { withCredentials: true });
   return data;
 });
 
 export const fetchAuthRegister = createAsyncThunk(
   "auth/fetchAuthRegister",
   async (values) => {
-    const { data } = await axios.post("/auth/register", values);
+    const { data } = await axios.post("/auth/register", values, {
+      withCredentials: true,
+    });
     return data;
   }
 );
