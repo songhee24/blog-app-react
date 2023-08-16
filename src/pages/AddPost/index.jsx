@@ -8,7 +8,7 @@ import styles from "./AddPost.module.scss";
 import { useSelector } from "react-redux";
 import { logout, selectIsAuth } from "../../redux/slices/authSlice.js";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import axios from "../../api/axios.js";
+import axios, { axiosFile } from "../../api/axios.js";
 
 export const AddPost = () => {
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ export const AddPost = () => {
     try {
       const formData = new FormData();
       formData.append("image", event.target.files[0]);
-      const { data } = await axios.post("/upload", formData);
+      const { data } = await axiosFile.post("/upload", formData);
       setImageUrl(data.url);
     } catch (e) {
       alert("Ошибка при загрузке файла !");
