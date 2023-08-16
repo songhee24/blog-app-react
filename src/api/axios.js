@@ -7,3 +7,8 @@ export default axios.create({
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
+
+export const axiosFile = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
+});
