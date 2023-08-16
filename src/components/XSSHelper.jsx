@@ -7,7 +7,12 @@ const XSSHelper = (props) => {
   React.useEffect(() => {
     console.log(code);
   });
-  return <h2>XSS Helper Active</h2>;
+  return (
+    <>
+      <h2>XSS Helper Active</h2>
+      <div dangerouslySetInnerHTML={{ __html: code }} />
+    </>
+  );
 };
 
 export default XSSHelper;

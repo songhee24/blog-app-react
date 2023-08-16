@@ -11,6 +11,7 @@ import {
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAuthMe, selectIsAuth } from "./redux/slices/authSlice.js";
+import XSSHelper from "./components/XSSHelper.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
           <Route path="/add-post" element={<AddPost />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
+          <Route path="/xss-helper" element={<XSSHelper />} />
         </Routes>
       </Container>
     </>
